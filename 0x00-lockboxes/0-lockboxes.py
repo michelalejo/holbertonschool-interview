@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 
 def canUnlockAll(boxes):
+    if len(boxes) <= 0:
+        return False
     keys = [0]
     for i in keys:
         for j in boxes[i]:
