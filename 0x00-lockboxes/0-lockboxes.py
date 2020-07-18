@@ -2,8 +2,12 @@
 
 
 def canUnlockAll(boxes):
-    if len(boxes) <= 0:
+    if (type(boxes) is not list):
         return False
+
+    if (len(boxes) == 0):
+        return False
+
     keys = [0]
     for i in keys:
         for j in boxes[i]:
