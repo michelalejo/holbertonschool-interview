@@ -3,44 +3,42 @@
 #include "lists.h"
 
 /**
- * print_listint - prints all elements of a listint_t list
+ * print_listint - prints all elements of new listint_t list
  * @h: pointer to head of list
  * Return: number of nodes
  */
 listint_t *insert_node(listint_t **head, int number)
 {
-	listint_t *new = malloc(sizeof(listint_t));
-	listint_t *tmp = *head;
+	listint_t *new = malloc(sizeof(listint_t)), *tmp = *head, *t;
+	int i = 0;
 
 	if (new == NULL)
 	{
-		free(new);
 		return (NULL);
 	}
-	if (*head == NULL)
+	new->n = number;
+	if (!head)
 	{
 		(*head) = new;
 		return (new);
 	}
-	new->n = number;
-	new->next = NULL;
-	while(tmp->next)
+	new->next = *head;
+	while (tmp)
 	{
-		if (tmp->next->n > number)
+		if (new->n > tmp->n)
 		{
-			new->next = tmp->next;
-			tmp->next = new;
-			return (new);
+			i = new->n;
+			new->n = tmp->n;
+			tmp->n= i;
+		}
+		if (tmp->next && tmp->n > tmp->next->n)
+		{
+			i = tmp->n;
+			tmp->n = tmp->next->n;
+			tmp->next->n= i;
 		}
 		tmp = tmp->next;
 	}
-	if (tmp->n > number)
-	{
-		new->next = tmp->next;
-		tmp->next = new;
-		return (new);
-	}
-	new->next = *head;
 	*head = new;
 	return (new);
 }
