@@ -96,19 +96,3 @@ heap_t *heap_search(heap_t *root)
 
 	return (p);
 }
-/**
- * sort_nodes - sort a child and a parent node
- * @new: inserted node
- *
- * Return: nothing
- */
-void max_heap_sort(heap_t *node)
-{
-	while (node && node->parent && node->n > node->parent->n)
-	{
-		node->parent->n -= node->n;
-		node->n = node->parent->n + node->n;
-		node->parent->n = node->n - node->parent->n;
-		node = node->parent;
-	}
-}
