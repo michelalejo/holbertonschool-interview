@@ -22,7 +22,7 @@ heap_t *heap_insert(heap_t **root, int value)
 		tmp->left = new;
 	else
 		tmp->right = new;
-	max_heap(new);
+	max_heap_sort(new);
 	return (new);
 }
 /**
@@ -102,7 +102,7 @@ heap_t *heap_search(heap_t *root)
  *
  * Return: nothing
  */
-void max_heap(heap_t *node)
+void max_heap_sort(heap_t *node)
 {
 	while (node && node->parent && node->n > node->parent->n)
 	{
