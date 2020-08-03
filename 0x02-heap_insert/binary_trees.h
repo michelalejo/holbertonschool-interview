@@ -28,5 +28,7 @@ binary_tree_t *binary_tree_node(binary_tree_t *parent, int value);
 heap_t *heap_insert(heap_t **root, int value);
 int heap_size(heap_t *root);
 int tree_is_perfect(const heap_t *tree);
+heap_t *heap_search(heap_t *root);
+
 
 #endif

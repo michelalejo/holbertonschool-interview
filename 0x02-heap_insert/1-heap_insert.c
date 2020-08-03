@@ -22,7 +22,6 @@ heap_t *heap_insert(heap_t **root, int value)
 		tmp->left = new;
 	else
 		tmp->right = new;
-	max_heap_sort(new);
 	return (new);
 }
 /**
