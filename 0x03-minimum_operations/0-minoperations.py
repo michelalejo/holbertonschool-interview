@@ -6,7 +6,12 @@ def minOperations(n):
     if n <= 1:
         return 0
 
-    for i in range(n - 1, 0, -1):
-        if n % i == 0:
-            number = n // i
-            return number + minOperations(i)
+    number = 0
+    i = 2
+    while (i <= n):
+        if not (n % i):
+            n = int(n / i)
+            number += i
+            i = 1
+        i += 1
+    return number
