@@ -4,13 +4,13 @@
 
 
 /**
- * is_palindrome - checks if a singly linked list is a palindrome
- * @head: list of listint_t
- * Return: 0 if it is not a palindrome, 1 if it is a palindrome
+ * is_palindrome - Function that checks if a singly linked list is palindrome.
+ * @head: Pointer to Linked list.
+ * Return: 0 if it is not a palindrome, 1 if it is a palindrome.
  */
 int is_palindrome(listint_t **head)
 {
-	listint_t *tmp = *head;;
+	listint_t *tmp = *head;
 	int i = 0, j = 0, k[1000000], len = 0;
 
 	if (head == NULL)
