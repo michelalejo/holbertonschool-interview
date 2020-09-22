@@ -8,12 +8,12 @@ def validUTF8(data):
     count = 0
     for n in data:
         if count == 0:
-            if (n >> 5) == 0b110:
-                count = 1
+            if (n >> 3) == 0b11110:
+                count = 3
             elif (n >> 4) == 0b1110:
                 count = 2
-            elif (n >> 3) == 0b11110:
-                count = 3
+            elif (n >> 5) == 0b110:
+                count = 1
             elif (n >> 7):
                 return False
         else:
