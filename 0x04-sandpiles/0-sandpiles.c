@@ -36,13 +36,13 @@ void balance_sandpile(int grid1[3][3], int i, int j)
 
 	grid1[i][j] -= 4;
 
-	if (IN_RANGE(l_i + i, l_j + j))
+	if (R(l_i + i, l_j + j))
 		grid1[l_i + i][l_j + j] += 1;
-	if (IN_RANGE(r_i + i, r_j + j))
+	if (R(r_i + i, r_j + j))
 		grid1[r_i + i][r_j + j] += 1;
-	if (IN_RANGE(u_i + i, u_j + j))
+	if (R(u_i + i, u_j + j))
 		grid1[u_i + i][u_j + j] += 1;
-	if (IN_RANGE(d_i + i, d_j + j))
+	if (R(d_i + i, d_j + j))
 		grid1[d_i + i][d_j + j] += 1;
 }
 
@@ -54,39 +54,39 @@ void balance_sandpile(int grid1[3][3], int i, int j)
  */
 void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 {
-	int i = 0, j = 0, toppling = 0;
-	int toppling_check[3][3];
+	int i = 0, j = 0, tmp = 0;
+	int new[3][3];
 
-	for (i = 0; i < SIZE; i++)
+	for (i = 0; i < s; i++)
 	{
-		for (j = 0; j < SIZE; j++)
+		for (j = 0; j < s; j++)
 		{
 			grid1[i][j] += grid2[i][j];
 		}
 	}
 
 	do {
-		toppling = 0;
-		for (i = 0; i < SIZE; i++)
-			for (j = 0; j < SIZE; j++)
+		tmp = 0;
+		for (i = 0; i < s; i++)
+			for (j = 0; j < s; j++)
 			{
 				if (grid1[i][j] > 3)
 				{
-					toppling_check[i][j] = 1;
-					toppling = 1;
+					new[i][j] = 1;
+					tmp = 1;
 				}
 				else
-					toppling_check[i][j] = 0;
+					new[i][j] = 0;
 			}
-		if (toppling)
+		if (tmp)
 		{
 			_print_grid(grid1);
-			for (i = 0; i < SIZE; i++)
-				for (j = 0; j < SIZE; j++)
+			for (i = 0; i < s; i++)
+				for (j = 0; j < s; j++)
 				{
-					if (toppling_check[i][j] == 1)
+					if (new[i][j] == 1)
 						balance_sandpile(grid1, i, j);
 				}
 		}
-	} while (toppling);
+	} while (tmp);
 }

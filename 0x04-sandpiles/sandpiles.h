@@ -1,8 +1,8 @@
 #ifndef SANDPILES_H
 #define SANDPILES_H
 
-#define SIZE 3
-#define IN_RANGE(x, y) (x >= 0 && x < 3 && y >= 0 && y < 3)
+#define s 3
+#define R(x, y) (x >= 0 && x < 3 && y >= 0 && y < 3)
 
 #include <stdlib.h>
 #include <stdio.h>
