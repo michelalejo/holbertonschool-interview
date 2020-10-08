@@ -25,6 +25,6 @@ except KeyboardInterrupt:
     pass
 finally:
     print("File size: {}".format(size))
-    for i, j in sorted(errors.items()):
-        if j != 0:
-            print("{}: {}".format(i, j))
+    for key sorted(errors.items()):
+        if errors[key] != 0:
+            print("{}: {}".format(key, errors[key]))
