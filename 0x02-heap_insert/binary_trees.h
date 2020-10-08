@@ -25,10 +25,24 @@ typedef struct binary_tree_s binary_tree_t;
 void binary_tree_print(const binary_tree_t *);
 binary_tree_t *binary_tree_node(binary_tree_t *parent, int value);
 
+/**
+ * struct empty_space_s - Struct to find the empty space
+ *
+ * @deep: Deep of the node
+ * @node: Node to find place
+ */
+struct empty_space_s
+{
+	int deep;
+	heap_t *node;
+};
+
+typedef struct empty_space_s empty_space_t;
+
 heap_t *heap_insert(heap_t **root, int value);
-int heap_size(heap_t *root);
-int tree_is_perfect(const heap_t *tree);
-heap_t *heap_search(heap_t *root);
+heap_t *free_space(heap_t *parent);
+heap_t *swap_nodes(heap_t *node);
+empty_space_t find_space(heap_t *node);
 
 
 #endif
