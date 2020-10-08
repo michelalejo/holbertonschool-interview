@@ -1,103 +1,109 @@
 #include "binary_trees.h"
 
 /**
- * heap_insert - Inserts a new Node
- * @root: root node
- * @value: value to insert
- * Return: The new allocated node
+ * heap_insert - Function that inserts a value into a Max Binary Heap.
+ * @root: Double pointer to the root node of the Heap.
+ * @value: Value store in the node to be inserted.
+ * Return: Return a pointer to the inserted node, or NULL on failure
  */
 heap_t *heap_insert(heap_t **root, int value)
 {
-	heap_t *new_node = NULL;
-	heap_t *min = NULL;
+	heap_t *new = NULL;
+	heap_t *lowest = NULL;
 
-	new_node = binary_tree_node(NULL, value);
-	if (!new_node)
+	new = binary_tree_node(NULL, value);
+	if (!new)
+	{
 		return (NULL);
+	}
 
 	if (!(*root))
 	{
-		*root = new_node;
-		return (new_node);
+		*root = new;
+		return (new);
 	}
-	min = free_space(*root);
 
-	if (!min->left)
-		min->left = new_node;
-	else
-		min->right = new_node;
-
-	new_node->parent = min;
-	return (swap_nodes(new_node));
-}
-
-/**
- * free_space - Inserts the new node in a free child
- * @root: Root node
- * Return: A pointer to the new node
- */
-heap_t *free_space(heap_t *root)
-{
-	empty_space_t aux;
-
-	aux = find_space(root);
-	return (aux.node);
-}
-
-/**
- * swap_nodes - Changes the new node position to his real one
- * @node: Node to change position
- * Return: The new position of the node
- */
-heap_t *swap_nodes(heap_t *node)
-{
-	int swap_aux;
-	heap_t *iterator = node;
-
-	while (iterator->parent)
+	lowest = insert_new_node(*root);
+	if (!lowest->left)
 	{
-		if (iterator->n > iterator->parent->n)
-		{
-			swap_aux = iterator->n;
-			iterator->n = iterator->parent->n;
-			iterator->parent->n = swap_aux;
-
-			iterator = iterator->parent;
-			continue;
-		}
-		return (iterator);
+		lowest->left = new;
 	}
-	return (iterator);
+	else
+	{
+		lowest->right = new;
+	}
+
+	new->parent = lowest;
+	return (heap_swap(new));
 }
 
 /**
- * find_space - Finds the space at the left
- * @node: Parent node
- * Return: An struct with the node and the deep
+ * heap_size - Finds the node size.
+ * @node: Pointer to the root node of the Heap.
+ * Return: An struct with the node size.
  */
-empty_space_t find_space(heap_t *node)
+space_t heap_size(heap_t *node)
 {
-	empty_space_t l, r, aux;
+	space_t tmp, left, right;
 
-	aux.node = node;
-	aux.deep = 0;
-
+	tmp.n = 0;
+	tmp.p = node;
 	if (!node->left || !node->right)
 	{
-		return (aux);
+		return (tmp);
 	}
 
-	l = find_space(node->left);
-	r = find_space(node->right);
-
-	if (l.deep <= r.deep)
+	left = heap_size(node->left);
+	right = heap_size(node->right);
+	if (left.n <= right.n)
 	{
-		l.deep += 1;
-		return (l);
+		left.n += 1;
+		return (left);
 	}
 	else
 	{
-		r.deep += 1;
-		return (r);
+		right.n += 1;
+		return (right);
 	}
+}
+
+/**
+ * insert_new_node - Inserts a new node.
+ * @root: Pointer to the root node of the Heap.
+ * Return: Pointer to new node.
+ */
+heap_t *insert_new_node(heap_t *root)
+{
+	space_t tmp;
+
+	tmp = heap_size(root);
+	return (tmp.p);
+}
+
+/**
+ * heap_swap - Swap  position of Nodes.
+ * @node: Pointer to be change the position.
+ * Return: Pointer to the new position at the node.
+ */
+heap_t *heap_swap(heap_t *node)
+{
+	heap_t *new_node = node;
+	int tmp;
+
+	while (new_node->parent)
+	{
+		if (new_node->n > new_node->parent->n)
+		{
+			tmp = new_node->n;
+			new_node->n = new_node->parent->n;
+			new_node->parent->n = tmp;
+
+			new_node = new_node->parent;
+			continue;
+		}
+
+		return (node);
+	}
+
+	return (node);
 }
