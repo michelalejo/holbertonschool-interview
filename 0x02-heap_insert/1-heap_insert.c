@@ -87,8 +87,8 @@ heap_t *insert_new_node(heap_t *root)
  */
 heap_t *heap_swap(heap_t *node)
 {
-	heap_t *new_node = node;
 	int tmp;
+	heap_t *new_node = node;
 
 	while (new_node->parent)
 	{
@@ -101,9 +101,7 @@ heap_t *heap_swap(heap_t *node)
 			new_node = new_node->parent;
 			continue;
 		}
-
-		return (node);
+		return (new_node);
 	}
-
-	return (node);
+	return (new_node);
 }

@@ -26,8 +26,7 @@ void binary_tree_print(const binary_tree_t *);
 binary_tree_t *binary_tree_node(binary_tree_t *parent, int value);
 
 /**
- * struct space_s - Struct to find the empty space
- *
+ * struct space_s - Struct to find the space at a Binary tree node.
  * @n: Size of the node
  * @p: Node.
  */
@@ -43,6 +42,5 @@ heap_t *heap_insert(heap_t **root, int value);
 heap_t *insert_new_node(heap_t *parent);
 heap_t *heap_swap(heap_t *node);
 space_t heap_size(heap_t *node);
-
 
 #endif
