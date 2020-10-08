@@ -7,53 +7,43 @@
  */
 void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 {
-	int i = 0, j = 0, is_stable = 1;
-	int new[3][3];
+	int i = 0, j = 0, tmp = 0;
+	int check[3][3];
 
-	sum_sandpiles(grid1, grid2);
-	while (is_stable == 1)
+	for (i = 0; i < SIZE; i++)
 	{
-		is_stable = 0;
-		for (i = 0; i < 3; i++)
-		{
-			for (j = 0; j < 3; j++)
-			{
-				new[i][j] = 0;
-			}
-		}
-		for (i = 0; i < 3; i++)
-		{
-			for (j = 0; j < 3; j++)
-			{
-				if (grid1[i][j] > 3)
-				{
-					printf("=\n");
-					printgrid(grid1);
-					balance_sandpile(new, j, i);
-					is_stable = 1;
-				}
-			}
-		}
-		sum_sandpiles(grid1, new);
-	}
-}
-
-/**
- * sum_sandpiles - Function that sums two sandpiles.
- * @grid1: First sandpile.
- * @grid2: Second sandpile.
- */
-void sum_sandpiles(int grid1[3][3], int grid2[3][3])
-{
-	int i = 0, j = 0;
-
-	for (i = 0; i < 3; i++)
-	{
-		for (j = 0; j < 3; j++)
+		for (j = 0; j < SIZE; j++)
 		{
 			grid1[i][j] += grid2[i][j];
 		}
 	}
+
+	do {
+		tmp = 0;
+		for (i = 0; i < SIZE; i++)
+			for (j = 0; j < SIZE; j++)
+			{
+				if (grid1[i][j] > 3)
+				{
+					check[i][j] = 1;
+					tmp = 1;
+				}
+				else
+				{
+					check[i][j] = 0;
+				}
+			}
+		if (tmp)
+		{
+			printgrid(grid1);
+			for (i = 0; i < SIZE; i++)
+				for (j = 0; j < SIZE; j++)
+				{
+					if (check[i][j] == 1)
+						balance_sandpile(grid1, i, j);
+				}
+		}
+	} while (tmp);
 }
 
 /**
@@ -62,22 +52,34 @@ void sum_sandpiles(int grid1[3][3], int grid2[3][3])
  * @i: Posiion of the Sandpile to be balanced.
  * @j: Posiion of the Sandpile to be balanced.
  */
-void balance_sandpile(int grid[3][3], int i, int j)
+void balance_sandpile(int grid1[3][3], int i, int j)
 {
-	grid[j][i] = grid[j][i] - 4;
-	if (i + 1 < 3)
-		grid[j][i + 1]++;
+	int d_i = 1, d_j = 0;
+	int l_i = 0, l_j = -1;
+	int r_i = 0, r_j = 1;
+	int u_i = -1, u_j = 0;
 
-	if (i - 1 > -1)
-		grid[j][i - 1]++;
+	grid1[i][j] -= 4;
+	if (IN_RANGE(l_i + i, l_j + j))
+	{
+		grid1[l_i + i][l_j + j] += 1;
+	}
+	
+	if (IN_RANGE(r_i + i, r_j + j))
+	{
+		grid1[r_i + i][r_j + j] += 1;
+	}
 
-	if (j + 1 < 3)
-		grid[j + 1][i]++;
+	if (IN_RANGE(u_i + i, u_j + j))
+	{
+		grid1[u_i + i][u_j + j] += 1;
+	}
 
-	if (j - 1 > -1)
-		grid[j - 1][i]++;
+	if (IN_RANGE(d_i + i, d_j + j))
+	{
+		grid1[d_i + i][d_j + j] += 1;
+	}
 }
-
 /**
  * printgrid - Function that prints a Sandpile.
  * @grid: Sandpile to be printed
