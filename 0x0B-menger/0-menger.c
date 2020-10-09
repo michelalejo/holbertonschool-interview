@@ -19,14 +19,8 @@ void menger(int level)
 				{
 					space = 1;
 				}
-			if (space)
-			{
-				printf("%c", ' ');
-			}
-			else
-			{
-				printf("%c", '#');
-			}
+
+			printf("%c", space ? ' ' : '#');
 		}
 
 		printf("\n");
