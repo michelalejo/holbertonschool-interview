@@ -7,7 +7,8 @@
  */
 void menger(int level)
 {
-	int i = 0, j = 0, size = pow(3, level), space = 0, i_2 = 0, j_2 = 0;
+	int i = 0, j = 0, i_2 = 0, j_2 = 0;
+	int size = pow(3, level), space = 0;
 
 	for (i = 0; i < size; i++)
 	{
@@ -15,7 +16,9 @@ void menger(int level)
 		{
 			for (i_2 = i, j_2 = j, space = 0; i_2 || j_2; i_2 /= 3, j_2 /= 3)
 				if (i_2 % 3 == 1 && j_2 % 3 == 1)
+				{
 					space = 1;
+				}
 			printf("%c", space ? ' ' : '#');
 		}
 		printf("\n");
