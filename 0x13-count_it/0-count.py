@@ -10,10 +10,9 @@ def count_words(subreddit, word_list, after='', words_counting={}):
     url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
     h = {'User-Agent': 'python3:holberton.task:v1.0'}
     payload = {'limit': '100', 'after': after}
-    response = requests.get(url, headers=h,
-                            params=payload, allow_redirects=False)
-    if response.status_code == 200:
-        data = response.json().get('data')
+    r = requests.get(url, headers=h, params=payload, allow_redirects=False)
+    if r.status_code == 200:
+        data = r.json().get('data')
         after = data.get('after')
         children = data.get('children')
         for child in children:
