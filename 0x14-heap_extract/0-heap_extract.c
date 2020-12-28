@@ -7,7 +7,7 @@
  */
 int heap_extract(heap_t **root)
 {
-	heap_t *BeforeNode = NULL, *AfterNode = NULL;
+	heap_t *BeforeNode = NULL, *parent  = NULL;
 	size_t bitwised = 0, size = 0;
 	int value = 0;
 
@@ -25,16 +25,17 @@ int heap_extract(heap_t **root)
 
 	for (BeforeNode = *root; bitwised; bitwised >>= 1)
 		BeforeNode = (bitwised & size) ? BeforeNode->right : BeforeNode->left;
-
 	value = (*root)->n;
 	(*root)->n = BeforeNode->n;
-	AfterNode = BeforeNode->AfterNode, free(BeforeNode);
-	if ((size--) & 1)
-		AfterNode->right = NULL;
-	else
-		AfterNode->left = NULL;
+	parent  = BeforeNode->parent;
+	free(BeforeNode);
 
+	if ((size--) & 1)
+		parent->right = NULL;
+	else
+		parent->left = NULL;
 	restore(*root);
+
 	return (value);
 }
 
@@ -75,7 +76,7 @@ size_t bitwise(size_t number)
 void restore(heap_t *root)
 {
 	int tmp;
-	heap_t *temp = root, *child = NULL;
+	heap_t *temp = root, *node = NULL;
 
 	while (1)
 	{
