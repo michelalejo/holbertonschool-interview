@@ -5,6 +5,7 @@
 import sys
 
 if __name__ == '__main__':
+    """0-main"""
     count_words = __import__('0-count').count_words
     if len(sys.argv) < 3:
         print("Usage: {} <subreddit> <list of keywords>".format(sys.argv[0]))
