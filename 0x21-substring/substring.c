@@ -1,5 +1,13 @@
 #include "substring.h"
 
+/**
+ * not_in - return 1 if 'q' not in array 'arr'
+ * @arr: an array of ints
+ * @len: the length of arr
+ * @q: the value to check for
+ * Return: 1 if value not found, else 0
+ */
+ 
 int *find_substring(char const *s, char const **words, int nb_words, int *n)
 {
 	int len, word_len, j, i = 0, k;
