@@ -1,7 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
 #include "substring.h"
 
 int *find_substring(char const *s, char const **words, int nb_words, int *n)
@@ -11,6 +7,7 @@ int *find_substring(char const *s, char const **words, int nb_words, int *n)
 
 	if (!s)
 		return (NULL);
+
 	*n = 0, len = strlen(s), word_len = strlen(words[0]);
 	found = malloc(nb_words * sizeof(int));
 	elements = malloc(len * sizeof(int));
